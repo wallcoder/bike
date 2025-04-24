@@ -2,7 +2,7 @@
 ### Prerequisites:
 - PHP 8.0 or higher
 - Composer
-- MySQL database
+- PostgreSQL database
 
 ### Steps to Install:
 1. Clone the repository:
