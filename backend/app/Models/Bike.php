@@ -21,5 +21,6 @@ class Bike extends Model
     public function bikeColor(): HasMany{
         return $this->hasMany(BikeColor::class);
     }
+    
 
 }
