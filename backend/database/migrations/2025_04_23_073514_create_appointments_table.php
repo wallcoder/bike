@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('email');
-            $table->foreignId('bike_id')->constrained('bikes')->cascadeOnDelete();
+            $table->foreignId('bike_id')->nullable()->constrained('bikes')->cascadeOnDelete();
             $table->enum('type', ['purchase', 'servicing']);
             $table->string('status');
             $table->timestamps();

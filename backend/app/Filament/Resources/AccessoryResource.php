@@ -21,8 +21,9 @@ class AccessoryResource extends Resource
 {
     protected static ?string $model = Accessory::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
+    protected static ?string $navigationIcon = 'heroicon-o-paper-clip';
+    protected static ?string $navigationGroup = 'Products';
+    protected static ?int $navigationSort = 2;
     public static function form(Form $form): Form
     {
         return $form
@@ -31,7 +32,7 @@ class AccessoryResource extends Resource
                     TextInput::make('description')->required(),
                     FileUpload::make('image')->required(),
                     TextInput::make('price')->required(),
-                    TextInput::make('quantity')->required()->numeric()
+                    
                     
             ]);
     }
@@ -44,7 +45,7 @@ class AccessoryResource extends Resource
                 TextColumn::make('name'),
                 TextColumn::make('description'),
                 TextColumn::make('price'),
-                TextColumn::make('quantity'),
+                
             ])
             ->filters([
                 //
@@ -62,7 +63,7 @@ class AccessoryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\AccessoryColorRelationManager::class
+            RelationManagers\AccessoryVariantRelationManager::class
         ];
     }
 

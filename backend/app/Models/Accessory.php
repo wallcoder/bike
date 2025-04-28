@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Accessory extends Model
@@ -21,6 +22,10 @@ class Accessory extends Model
     public function accessoryColor(): HasMany{
         return $this->hasMany(AccessoryColor::class);
     }
+    public function accessoryVariant(): HasMany{
+        return $this->hasMany(AccessoryVariant::class);
+    }
+    
 
 
 }

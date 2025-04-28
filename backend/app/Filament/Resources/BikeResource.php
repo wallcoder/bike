@@ -10,6 +10,7 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
@@ -22,8 +23,9 @@ class BikeResource extends Resource
 {
     protected static ?string $model = Bike::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
+    protected static ?string $navigationIcon = 'heroicon-o-star';
+    protected static ?string $navigationGroup = 'Products';
+    protected static ?int $navigationSort = 3;
     public static function form(Form $form): Form
     {
         return $form
@@ -36,7 +38,7 @@ class BikeResource extends Resource
                 ]),
                 FileUpload::make('image')->required(),
                 TextInput::make('description')->required(),
-                TextInput::make('quantity')->required()->numeric(),
+               
                 
                 TextInput::make('price')->required()->numeric(),
                 
@@ -71,7 +73,8 @@ class BikeResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\BikeColorRelationManager::class
+            RelationManagers\BikeVariantRelationManager::class
+            
         ];
     }
 

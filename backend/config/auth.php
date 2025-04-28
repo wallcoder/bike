@@ -64,6 +64,10 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
+        'api' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
