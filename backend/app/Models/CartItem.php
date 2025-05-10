@@ -13,7 +13,7 @@ class CartItem extends Model
     public function user(): BelongsTo{
         return $this->belongsTo(User::class);
     }
-    public function accessory(): BelongsTo{
-        return $this->belongsTo(Accessory::class);
+    public function accessoryVariantColor(): BelongsTo{
+        return $this->belongsTo(AccessoryVariantColor::class);
     }
 }

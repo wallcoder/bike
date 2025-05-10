@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('bikes', function (Blueprint $table) {
             $table->id();
             $table->string('model');
-            $table->foreignId('brand_id')->constrained('bikes')->cascadeOnDelete();
+            $table->foreignId('brand_id')->constrained('brands')->cascadeOnDelete();
             $table->string('description');
           
             $table->string('image');
-            $table->decimal('price', 10,2);
+            $table->decimal('base_price', 10,2);
             $table->timestamps();
         });
     }

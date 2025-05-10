@@ -14,12 +14,10 @@ class Bike extends Model
     public function brand(): BelongsTo{
         return $this->belongsTo(Brand::class);
     }
-
-    public function appointment(): HasMany{
-        return $this->hasMany(Appointment::class);
-    }
-    public function bikeColor(): HasMany{
-        return $this->hasMany(BikeColor::class);
+  
+    
+    public function bikeVariant(): HasMany{
+        return $this->hasMany(BikeVariant::class);
     }
     
 

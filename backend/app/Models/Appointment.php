@@ -10,8 +10,8 @@ class Appointment extends Model
 {
     protected $guarded = [];
 
-    public function bike():BelongsTo{
-        return $this->belongsTo(Bike::class);
+    public function bikeVariantColor():BelongsTo{
+        return $this->belongsTo(BikeVariantColor::class);
     }
     public function payment():HasMany{
         return $this->hasMany(Payment::class);

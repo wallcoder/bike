@@ -10,6 +10,11 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
+
+Route::middleware(JwtAuthenticate::class)->group(function(){
+    Route::get('/me', [AuthController::class, 'checkToken']);
+   
+});
 Route::post('/register', [AuthController::class, "register"]);
 Route::post('/login', [AuthController::class, "login"]);
 Route::get('/test', function(Request $request){

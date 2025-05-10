@@ -6,15 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class BikeVariant extends Model
+class BikeVariantColor extends Model
 {
     protected $guarded = [];
 
-    public function bike(): BelongsTo{
-        return $this->belongsTo(Bike::class);
+    public function bikeVariant(): BelongsTo{
+        return $this->belongsTo(BikeVariant::class);
     }
 
-    public function bikeVariantColor(): HasMany{
+    public function color(): BelongsTo{
+        return $this->belongsTo(Color::class);
+    }
+
+    public function appointment(): HasMany{
         return $this->hasMany(BikeVariantColor::class);
     }
+
+
 }

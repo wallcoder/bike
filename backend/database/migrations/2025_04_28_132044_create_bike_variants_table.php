@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('bike_variants', function (Blueprint $table) {
             $table->id();
             $table->foreignId('bike_id')->constrained('bikes')->cascadeOnDelete();
-            $table->string('color');
-            $table->string('image');
-            $table->integer('quantity');
+            $table->integer('engine_capacity');
+            $table->float('mileage');
+            $table->integer('transmission');
+            $table->float('kerb_weight');
+            $table->float('fuel_tank_capacity');
+            $table->float('seat_height');
             $table->timestamps();
         });
     }

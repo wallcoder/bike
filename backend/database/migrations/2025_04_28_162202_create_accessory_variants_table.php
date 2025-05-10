@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('accessory_variants', function (Blueprint $table) {
             $table->id();
             $table->foreignId('accessory_id')->constrained('accessories')->cascadeOnDelete();
-            $table->string('color');
-            $table->string('image');
-            $table->integer('quantity');
+            $table->float('weight');
+            $table->string('material');
             $table->timestamps();
         });
     }

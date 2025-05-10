@@ -2,22 +2,26 @@
 import { ref, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 import Logo from '@/components/Logo.vue'
+import { storeToRefs } from 'pinia'
+import { useAuthStore } from '@/stores/auth'
 
+const { isLoggedin } = storeToRefs(useAuthStore())
+const {logout} = useAuthStore()
 const isOpenSidebar = ref(false)
 const links = ref([
-    {label: 'Bikes', link: '/bikes'},
-    {label: 'Servicing', link: '/servicing'},
-    {label: 'Accessories', link: '/accessories'},
-    {label: 'Login', link: '/user/login'},
-    
+    { label: 'Bikes', link: '/bikes' },
+    { label: 'Servicing', link: '/servicing' },
+    { label: 'Accessories', link: '/accessories' },
+    { label: 'Login', link: '/user/login' },
+
 ])
 
 watch(isOpenSidebar, (newVal) => {
-   if (newVal) {
-      document.body.classList.add('overflow-hidden')
-   } else {
-      document.body.classList.remove('overflow-hidden')
-   }
+    if (newVal) {
+        document.body.classList.add('overflow-hidden')
+    } else {
+        document.body.classList.remove('overflow-hidden')
+    }
 })
 
 </script>
@@ -37,8 +41,22 @@ watch(isOpenSidebar, (newVal) => {
                     exact-active-class="bg-gray-100">Servicing</RouterLink>
                 <RouterLink to="/accessories" class="text-sm cursor-pointer py-2 px-4 rounded-lg hover:bg-gray-100"
                     exact-active-class="bg-gray-100">Accessories</RouterLink>
-                <RouterLink to="/user/login" class="text-sm cursor-pointer py-2 px-4 rounded-lg hover:bg-gray-100"
-                    exact-active-class="bg-gray-100">Login</RouterLink>
+                <RouterLink v-if="!isLoggedin" to="/user/login"
+                    class="text-sm cursor-pointer py-2 px-4 rounded-lg hover:bg-gray-100" exact-active-class="bg-gray-100">
+                    Login</RouterLink>
+
+                <div v-else class="flex gap-2 items-center">
+                    <button @click="logout()" class="text-sm cursor-pointer py-2 px-4 rounded-lg hover:bg-gray-100">Logout</button>
+                    <span class="p-1 flex items-center justify-center size-8 cursor-pointer rounded-full hover:bg-gray-100">
+                        <i class="bx bxs-cart text-lg "></i>
+                    </span>
+                    <span class="p-1 flex items-center justify-center size-8 cursor-pointer rounded-full hover:bg-gray-100">
+                        <i class="bx bxs-user text-lg "></i>
+                    </span>
+                    
+                    
+                </div>
+
             </nav>
 
         </header>

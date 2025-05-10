@@ -7,6 +7,7 @@ use App\Filament\Resources\AppointmentResource\RelationManagers;
 use App\Models\Appointment;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -30,16 +31,25 @@ class AppointmentResource extends Resource
                 TextInput::make('name')->required(),
                 TextInput::make('phone')->required(),
                 TextInput::make('email')->required(),
-                Select::make('bike_id')->relationship('bike', 'model')
-                ->searchable()->required(),
+                Textarea::make('note')->required(),
+                Select::make('bike_variant_color_id')->label('Bike')
+                ->relationship('bikeVariantColor', 'id') // or any column, doesn't matter when using getOptionLabelFromRecordUsing
+                ->getOptionLabelFromRecordUsing(fn ($record) => 
+                    "{$record->bikeVariant->bike->brand} - {$record->bikeVariant->bike->model} - {$record->bikeVariant->variant_name} - {$record->color->name}"
+                )
+                ->searchable(),
                 Select::make('type')->options([
                     'purchase'=>'Purchase',
                     'servicing'=>'Servicing'
                 ])->default('purchase')->required(),
                 Select::make('status')->options([
+
+                    'pending'=>'Pending',
+                    'confirmed'=>'Confirmed',
                     'waiting'=>'Waiting',
                     'cancelled'=>'Cancelled',
-                    'finished'=>'Finished'
+                    'completed'=>'Completed',
+                    'absent'=>'Absent'
                 ])->required()
 
             ]);
@@ -52,7 +62,7 @@ class AppointmentResource extends Resource
                 TextColumn::make('name'),
                 TextColumn::make('phone'),
                 TextColumn::make('email'),
-                TextColumn::make('bike.model'),
+                TextColumn::make('bikeVariantColor.bikeVariant.bike.model')->label('Model'),
                 TextColumn::make('type'),
                 TextColumn::make('status'),
                 TextColumn::make('bike.bikeColor.color')->label("color"),

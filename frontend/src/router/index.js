@@ -4,8 +4,12 @@ import HomePage from '@/views/HomePage.vue'
 import Login from '@/views/Login.vue'
 import Signup from '@/views/Signup.vue'
 import Bikes from '@/views/Bikes.vue'
+import BikePage from '@/views/BikePage.vue'
+import AccessoryPage from '@/views/AccessoryPage.vue'
 import Accessories from '@/views/Accessories.vue'
 import Servicing from '@/views/Servicing.vue'
+
+import { useAuthStore } from '@/stores/auth'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -22,7 +26,8 @@ const router = createRouter({
         {
           path: '/user/login',
           name: 'login',
-          component: Login
+          component: Login,
+          meta: { requiresLogout: true }
         },
         {
           path: '/user/signup',
@@ -43,10 +48,20 @@ const router = createRouter({
           path: '/servicing',
           name: 'serviving',
           component: Servicing
+        },
+        {
+          path: '/bike/:slug',
+          props: true,
+          component: BikePage
+        },
+        {
+          path: '/accessory/:slug',
+          props: true,
+          component: AccessoryPage
         }
       ]
     },
-    
+
   ],
   scrollBehavior(to, from, savedPosition) {
     if (to.hash) {
@@ -59,7 +74,30 @@ const router = createRouter({
   },
 
 
-  
+
 })
+
+
+router.beforeEach(async (to, from) => {
+  const { checkToken } = useAuthStore();
+
+  if (to.meta.requiresAuth) {
+    const check = await checkToken(true);
+    if (!check) {
+      return '/user/login'; // redirect
+    }
+    return true; // allow
+  }
+
+  if (to.meta.requiresLogout) {
+    const check = await checkToken(true);
+    if (check) {
+      return '/'; // redirect to home
+    }
+    return true; // allow
+  }
+
+  return true; // allow by default
+});
 
 export default router

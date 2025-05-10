@@ -11,8 +11,8 @@ class OrderItem extends Model
 
     
 
-    public function accessory(): BelongsTo{
-        return $this->belongsTo(Accessory::class);
+    public function accessoryVariantColor(): BelongsTo{
+        return $this->belongsTo(AccessoryVariantColor::class);
     }
 
     public function order(): BelongsTo{

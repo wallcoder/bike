@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id')->nullable()->constrained('orders')->nullOnDelete();
             $table->string('ref_id')->nullable();
-            $table->foreignId('appointment_id')->nullable()->constrained('appointments')->nullOnDelete();
+            // $table->foreignId('appointment_id')->nullable()->constrained('appointments')->nullOnDelete();
            $table->string('method');
            $table->enum('status', ['pending', 'success', 'failure']);
            $table->decimal('amount', 6,2);

@@ -16,9 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('email');
-            $table->foreignId('bike_id')->nullable()->constrained('bikes')->cascadeOnDelete();
+            $table->text('note')->nullable();
+            $table->foreignId('bike_variant_color_id')->nullable()->constrained('bike_variant_colors')->cascadeOnDelete();
             $table->enum('type', ['purchase', 'servicing']);
-            $table->string('status');
+            $table->enum('status', ['pending', 'confirmed', 'cancelled', 'completed', 'failed', 'absent']);
+            $table->dateTime('appointment_time')->nullable();
             $table->timestamps();
         });
     }
