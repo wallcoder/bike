@@ -18,7 +18,7 @@ return new class extends Migration
             // $table->foreignId('appointment_id')->nullable()->constrained('appointments')->nullOnDelete();
            $table->string('method');
            $table->enum('status', ['pending', 'success', 'failure']);
-           $table->decimal('amount', 6,2);
+           $table->decimal('amount', 10,2);
             $table->timestamps();
         });
     }

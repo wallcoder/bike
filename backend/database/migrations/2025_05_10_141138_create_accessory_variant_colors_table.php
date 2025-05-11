@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('accessory_variant_id')->constrained('accessory_variants')->cascadeOnDelete();
             $table->foreignId('color_id')->constrained('colors')->nullOnDelete();
             $table->decimal('price', 10,2);
+            $table->string('image');
             $table->integer('stock');
             $table->enum('status', ['available', 'unavailable'])->default('available');
             $table->timestamps();

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('bike_variant_id')->constrained('bike_variants')->cascadeOnDelete();
             $table->foreignId('color_id')->constrained('colors')->nullOnDelete();
+            $table->string('image');
             $table->decimal('price', 10,2);
             $table->enum('status', ['available', 'unavailable'])->default('available');
             $table->timestamps();

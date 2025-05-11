@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('accessory_variant_color_id')->nullable()->constrained('accessory_variant_colors')->nullOnDelete();
             $table->string('name');
             $table->string('description');
-            $table->decimal('price', 6,2);
+            $table->decimal('price', 10,2);
             $table->integer('quantity');
             $table->timestamps();
         });

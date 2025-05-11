@@ -6,12 +6,14 @@ use App\Filament\Resources\AppointmentResource\Pages;
 use App\Filament\Resources\AppointmentResource\RelationManagers;
 use App\Models\Appointment;
 use Filament\Forms;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -32,11 +34,12 @@ class AppointmentResource extends Resource
                 TextInput::make('phone')->required(),
                 TextInput::make('email')->required(),
                 Textarea::make('note')->required(),
+                DateTimePicker::make('appointment_time'),
                 Select::make('bike_variant_color_id')->label('Bike')
                 ->relationship('bikeVariantColor', 'id') // or any column, doesn't matter when using getOptionLabelFromRecordUsing
                 ->getOptionLabelFromRecordUsing(fn ($record) => 
-                    "{$record->bikeVariant->bike->brand} - {$record->bikeVariant->bike->model} - {$record->bikeVariant->variant_name} - {$record->color->name}"
-                )
+                    "{$record->bikeVariant->bike->brand->name} - {$record->bikeVariant->bike->model} - {$record->bikeVariant->name} - {$record->color->name}"
+                )->preload()
                 ->searchable(),
                 Select::make('type')->options([
                     'purchase'=>'Purchase',
@@ -59,14 +62,16 @@ class AppointmentResource extends Resource
     {
         return $table
             ->columns([
+                 ImageColumn::make('bikeVariantColor.image')->label("Image"),
                 TextColumn::make('name'),
                 TextColumn::make('phone'),
                 TextColumn::make('email'),
                 TextColumn::make('bikeVariantColor.bikeVariant.bike.model')->label('Model'),
                 TextColumn::make('type'),
                 TextColumn::make('status'),
-                TextColumn::make('bike.bikeColor.color')->label("color"),
-                ImageColumn::make('bike.bikeColor.image')->label("Image"),
+                ColorColumn::make('bikeVariantColor.color.code')->label("color"),
+                TextColumn::make('appointment_time')
+               
             ])
             ->filters([
                 //

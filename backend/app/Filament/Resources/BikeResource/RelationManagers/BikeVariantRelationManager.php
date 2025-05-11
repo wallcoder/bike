@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\BikeResource\RelationManagers;
 
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
@@ -18,12 +19,15 @@ class BikeVariantRelationManager extends RelationManager
     {
         return $form
             ->schema([
+
+                Forms\Components\TextInput::make('name')->required(),
                 Forms\Components\TextInput::make('mileage')->required()->numeric(),
                 Forms\Components\TextInput::make('engine_capacity')->required()->numeric(),
                 Forms\Components\TextInput::make('transmission')->required()->numeric(),
                 Forms\Components\TextInput::make('kerb_weight')->required()->numeric(),
                 Forms\Components\TextInput::make('fuel_tank_capacity')->required()->numeric(),
                 Forms\Components\TextInput::make('seat_height')->required()->numeric(),
+                
             ]);
     }
 
@@ -32,6 +36,7 @@ class BikeVariantRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('mileage')
             ->columns([
+                Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('mileage'),
                 Tables\Columns\TextColumn::make('engine_capacity'),
                 Tables\Columns\TextColumn::make('transmission'),

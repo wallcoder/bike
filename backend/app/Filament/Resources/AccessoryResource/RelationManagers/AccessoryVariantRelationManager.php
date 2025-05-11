@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\AccessoryResource\RelationManagers;
 
 use Filament\Forms;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -20,21 +19,23 @@ class AccessoryVariantRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                TextInput::make('color')->required(),
-                FileUpload::make('image')->required(),
-                Forms\Components\TextInput::make('quantity')
-                    ->required()->numeric(),
+                 TextInput::make('name'),
+                Forms\Components\TextInput::make('material')
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('weight')->numeric(),
+               
             ]);
     }
 
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('color')
+            ->recordTitleAttribute('material')
             ->columns([
-                Tables\Columns\TextColumn::make('color'),
-                Tables\Columns\ImageColumn::make('image'),
-                Tables\Columns\TextColumn::make('quantity'),
+                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('material'),
+                Tables\Columns\TextColumn::make('weight'),
             ])
             ->filters([
                 //
