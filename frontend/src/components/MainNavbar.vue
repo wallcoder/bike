@@ -50,9 +50,9 @@ watch(isOpenSidebar, (newVal) => {
                     <span class="p-1 flex items-center justify-center size-8 cursor-pointer rounded-full hover:bg-gray-100">
                         <i class="bx bxs-cart text-lg "></i>
                     </span>
-                    <span class="p-1 flex items-center justify-center size-8 cursor-pointer rounded-full hover:bg-gray-100">
-                        <i class="bx bxs-user text-lg "></i>
-                    </span>
+                    <RouterLink to="/user" class="p-1 flex items-center justify-center size-8 cursor-pointer rounded-full hover:bg-gray-100">
+                         <i class="bx bxs-user text-lg "></i>
+                    </RouterLink>
                     
                     
                 </div>

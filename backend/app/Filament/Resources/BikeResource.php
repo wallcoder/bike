@@ -38,6 +38,7 @@ class BikeResource extends Resource
                     FileUpload::make('image')->image()->required(),
                 ]),
                 Textarea::make('description')->required(),
+                
                 FileUpload::make('image')->image()->required(),
                 TextInput::make('base_price')->numeric()->required()
 
@@ -52,6 +53,7 @@ class BikeResource extends Resource
                 TextColumn::make('model'),
                 TextColumn::make('brand.name'),
                 TextColumn::make('description'),
+                TextColumn::make('slug'),
                 TextColumn::make('base_price'),
                 
             ])

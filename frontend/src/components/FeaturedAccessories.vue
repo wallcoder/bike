@@ -1,30 +1,75 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import AccessoryCard from './AccessoryCard.vue';
 import ButtonLink from '@/components/ButtonLink.vue'
+import { storeToRefs } from 'pinia'
+import { useAccStore } from '@/stores/accessory'
+
+const { accs, isLoadingAccs } = storeToRefs(useAccStore())
+const { getAccs } = useAccStore()
+
+onMounted(() => {
+    getAccs()
+})
+
 </script>
 <template>
-    <section class="px-[4%] md:px-[8%] py-10 flex flex-col gap-2">
-        <div class="flex gap-2 items-center">
-            <h1 class="text-2xl font-semibold">Featured Accessories</h1>
-            <!-- <div>
-                <select name="brand" id="brand" class="px-2 cursor-pointer bg-gray-100">
-                    <option value="" v-for="n in 5">Honda</option>
-                </select>
-            </div> -->
-        </div>
+    <div>
+        <section v-if="isLoadingAccs" class="px-[4%] md:px-[8%] py-10 flex flex-col gap-4 animate-pulse">
+            <!-- Header -->
+            <div class="flex gap-2 items-center">
+                <div class="h-8 w-40 bg-gray-100 rounded"></div>
+                <div class="h-8 w-24 bg-gray-100 rounded"></div>
+            </div>
 
-        <div class="flex flex-col">
+            <!-- Empty filler for filters or content -->
+            <div class="flex flex-col gap-2">
+                <div class="h-4 w-1/2 bg-gray-100 rounded"></div>
+                <div class="h-4 w-1/3 bg-gray-100 rounded"></div>
+            </div>
+
+            <!-- Grid skeleton cards -->
+            <div class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+                <div v-for="n in 4" :key="n" class="p-4 rounded-lg shadow bg-gray-100 flex flex-col gap-4">
+                    <div class="h-40  rounded"></div>
+                    <div class="h-4 w-3/4  rounded"></div>
+                    <div class="h-4 w-1/2  rounded"></div>
+                    <div class="h-6 w-1/3  rounded mt-auto"></div>
+                </div>
+            </div>
+
+            <!-- Bottom link -->
+            <div class="h-6 w-48 bg-gray-100 rounded"></div>
+        </section>
+        <section v-else class="px-[4%] md:px-[8%] py-10 flex flex-col gap-2">
+            <!-- {{ bikes }} -->
+            <div class="flex gap-2 items-center">
+                <h1 class="text-2xl font-semibold">Featured Accessories</h1>
+                <!-- <div>
+                    <select name="brand" id="brand" class="px-2 cursor-pointer bg-gray-100">
+                        <option value="" v-for="n in 5">Honda</option>
+                    </select>
+                </div> -->
+            </div>
+
+            <div class="flex flex-col">
 
 
 
-        </div>
-        <div class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2">
-            <AccessoryCard />
-            
-            
+            </div>
+            <div class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2">
+                <AccessoryCard :items="accs.data" />
 
-        </div>
-        <RouterLink to="/accessories" class="capitalize hover:text-purple-600 e font-semibold flex items-center"><span>See all available accessories</span>   <i class='bx bx-chevron-right text-xl'  ></i></RouterLink>
-    </section>
+
+
+
+            </div>
+            <span class="">
+
+                <RouterLink to="/bikes" class="capitalize hover:text-purple-600  font-semibold    "><span>See
+                        all available accessories</span> </RouterLink>
+
+            </span>
+        </section>
+    </div>
 </template>

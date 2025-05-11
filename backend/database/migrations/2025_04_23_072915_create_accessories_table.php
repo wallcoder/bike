@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('model');
             $table->foreignId('brand_id')->constrained('brands')->cascadeOnDelete();
             $table->string('description');
+            $table->string('slug');
           
             $table->string('image');
             $table->decimal('base_price', 10,2);

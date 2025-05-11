@@ -8,6 +8,8 @@ import BikePage from '@/views/BikePage.vue'
 import AccessoryPage from '@/views/AccessoryPage.vue'
 import Accessories from '@/views/Accessories.vue'
 import Servicing from '@/views/Servicing.vue'
+import UserPage from '@/views/UserPage.vue'
+import CartPage from '@/components/CartPage.vue'
 
 import { useAuthStore } from '@/stores/auth'
 const router = createRouter({
@@ -58,6 +60,19 @@ const router = createRouter({
           path: '/accessory/:slug',
           props: true,
           component: AccessoryPage
+        },
+        {
+          path: '/user',
+          name: 'user-page',
+          meta: {requiresAuth: true},
+          component: UserPage,
+          children: [
+            {
+              path: '',
+              component: CartPage,
+              name: 'cart-page'
+            }
+          ]
         }
       ]
     },
