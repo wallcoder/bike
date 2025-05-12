@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import AccessoryCard from './AccessoryCard.vue';
+import AccessoryCard from '@/components/AccessoryCard.vue';
 import ButtonLink from '@/components/ButtonLink.vue'
 import { storeToRefs } from 'pinia'
 import { useAccStore } from '@/stores/accessory'
@@ -52,10 +52,10 @@ onMounted(() => {
                 </div> -->
             </div>
 
-            <div class="flex flex-col">
+             <div v-if="accs?.data?.length == 0" class="flex flex-col">
 
 
-
+                 No Bike Available
             </div>
             <div class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2">
                 <AccessoryCard :items="accs.data" />

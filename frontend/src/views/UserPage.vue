@@ -22,10 +22,10 @@
                 
  
             </div>
-            <div class="flex gap-4 ">
-                <RouterLink to="/user/cart" exact-active-class="text-purple-600 underline">Cart</RouterLink>
-                <RouterLink to="/user/cart" exact-active-class="text-purple-600 underline">Order History</RouterLink>
-                <RouterLink to="/user/cart" exact-active-class="text-purple-600 underline">Payment History</RouterLink>
+            <div class="flex gap-6 ">
+                <RouterLink to="/user" exact-active-class="text-purple-600 font-semibold">Cart</RouterLink>
+                <RouterLink to="/user/orders" exact-active-class="text-purple-600 font-semibold">Orders</RouterLink>
+                
             </div>
             <div>
                 <RouterView />

@@ -9,12 +9,12 @@ import { useCartStore } from '@/stores/cart'
 import { push } from 'notivue'
 import axios from 'axios'
 
-const {addToCart} = useCartStore()
+const { addToCart } = useCartStore()
 const { acc, isLoadingAccPage } = storeToRefs(useAccStore())
 const { getAccBySlug } = useAccStore()
 
 const api = import.meta.env.VITE_SERVER
-
+const quantity = ref(1)
 const props = defineProps({
     slug: {
         type: String,
@@ -235,17 +235,23 @@ watchEffect(() => {
                 <div>
                     Stocks: {{ selectedVariantColor?.stock }}
                 </div>
-                
 
-                <!-- Price and Stock -->
-                <span class="text-sm text-gray-500 ">
-                    <span></span>
-                </span>
+
+
                 <div class="text-xl  text-gray-900 ">₹{{ currentPrice }}</div>
 
-                <!-- Booking -->
-                <div class=" mt-1">
-                    <Button content="Add to Cart" :fun="() => { addToCart(selectedVariantColor?.id, 1, currentPrice) }" />
+                <div class="flex gap-2 items-center">
+                    <div class="flex  gap-2 items-center">
+                        <label for="quantity">Quantity</label>
+                      
+                        <input v-model="quantity" type="number" min="1" :max="selectedVariantColor?.stock" name="" class=" border-gray-200 border rounded-lg p-2 w-16 outline-none" id="">
+
+                    </div>
+                    <!-- Booking -->
+                    <div class="">
+                        <Button content="Add to Cart"
+                            :fun="() => { addToCart(selectedVariantColor?.id, quantity, currentPrice) }" />
+                    </div>
                 </div>
             </div>
         </div>

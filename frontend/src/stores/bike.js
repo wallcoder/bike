@@ -9,7 +9,7 @@ export const useBikeStore = defineStore('bike', ()=>{
     const bike = ref([])
     const getBikes = async (limit=4)=>{
         try{
-            if(bikes.value.length > 0){
+            if(bikes.value?.data?.length > 0){
                 return
             }
             isLoadingBikes.value = true

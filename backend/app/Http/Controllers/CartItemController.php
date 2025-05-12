@@ -22,7 +22,7 @@ class CartItemController extends Controller
                   'accessoryVariant' => function ($q) {
                       $q->select('id', 'accessory_id', 'name')
                         ->with([
-                            'accessory:id,model'
+                            'accessory:id,model,slug'
                         ]);
                   }
               ]);

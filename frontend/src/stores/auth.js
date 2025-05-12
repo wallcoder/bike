@@ -2,10 +2,11 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios';
 import {push} from 'notivue'
+import { useUtilStore } from './util';
 import { useRouter } from 'vue-router'
 export const useAuthStore = defineStore('auth', () => {
 
-
+    const {startLoading, finishLoading} = useUtilStore();
     const user = ref(null)
     const isLoggedin = ref()
     const isLoadingLogin = ref(false)
@@ -30,7 +31,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     const handleLogin = async () => {
         try {
-            // startLoading()
+            startLoading()
             isLoadingLogin.value = true
             const response = await axios.post('/login', {
                 email: login.value.email,
@@ -59,7 +60,7 @@ export const useAuthStore = defineStore('auth', () => {
                 push.error(err.response.data.message)
             }
         } finally {
-            // finishLoading()
+             finishLoading()
             isLoadingLogin.value = false
         }
 
@@ -71,7 +72,7 @@ export const useAuthStore = defineStore('auth', () => {
     const handleSignUp = async () => {
         try {
             console.log("hehehe")
-            // startLoading()
+            startLoading()
             isLoadingSignup.value = true
             const response = await axios.post('/register', {
                 email: signUp.value.email,
@@ -117,7 +118,7 @@ export const useAuthStore = defineStore('auth', () => {
             }
             // push.error(err.response.data.message) 
         } finally {
-            // finishLoading()
+             finishLoading()
             isLoadingSignup.value = false
         }
     }
@@ -125,7 +126,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     const checkToken = async (init = false) => {
         try {
-            // startLoading()
+            startLoading()
             const response = await axios.get('/me')
             // localStorage.setItem('user', JSON.stringify(response.data.data))
             isLoggedin.value = true
@@ -146,14 +147,14 @@ export const useAuthStore = defineStore('auth', () => {
             }
 
         } finally {
-            // finishLoading()
+             finishLoading()
         }
     }
 
 
     const logout = async () => {
         try {
-            // startLoading()
+            startLoading()
             const response = await axios.post('/logout')
 
             user.value = null
@@ -165,7 +166,7 @@ export const useAuthStore = defineStore('auth', () => {
         } catch (err) {
             console.log(err)
         } finally {
-            // finishLoading()
+            finishLoading()
         }
     }
 

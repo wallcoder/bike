@@ -10,6 +10,7 @@ import Accessories from '@/views/Accessories.vue'
 import Servicing from '@/views/Servicing.vue'
 import UserPage from '@/views/UserPage.vue'
 import CartPage from '@/components/CartPage.vue'
+import OrderPage from '@/components/OrderPage.vue'
 
 import { useAuthStore } from '@/stores/auth'
 const router = createRouter({
@@ -71,6 +72,11 @@ const router = createRouter({
               path: '',
               component: CartPage,
               name: 'cart-page'
+            },
+            {
+              path: 'orders',
+              component: OrderPage,
+              name: 'order-page'
             }
           ]
         }

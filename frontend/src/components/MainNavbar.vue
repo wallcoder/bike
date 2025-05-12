@@ -47,9 +47,9 @@ watch(isOpenSidebar, (newVal) => {
 
                 <div v-else class="flex gap-2 items-center">
                     <button @click="logout()" class="text-sm cursor-pointer py-2 px-4 rounded-lg hover:bg-gray-100">Logout</button>
-                    <span class="p-1 flex items-center justify-center size-8 cursor-pointer rounded-full hover:bg-gray-100">
-                        <i class="bx bxs-cart text-lg "></i>
-                    </span>
+                    <RouterLink to="/user" class="p-1 flex items-center justify-center size-8 cursor-pointer rounded-full hover:bg-gray-100">
+                         <i class="bx bxs-cart text-lg "></i>
+                    </RouterLink>
                     <RouterLink to="/user" class="p-1 flex items-center justify-center size-8 cursor-pointer rounded-full hover:bg-gray-100">
                          <i class="bx bxs-user text-lg "></i>
                     </RouterLink>

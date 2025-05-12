@@ -10,7 +10,7 @@ export const useAccStore = defineStore('acc', () => {
 
     const getAccs = async (limit = 4) => {
         try {
-            if (accs.value.length > 0) {
+            if (accs.value?.data?.length > 0) {
                 return;
             }
             isLoadingAccs.value = true;

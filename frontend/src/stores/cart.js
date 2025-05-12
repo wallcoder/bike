@@ -61,7 +61,7 @@ export const useCartStore = defineStore('cart', ()=>{
     const removeFromCart = async (accessoryVariantColorId, quantity=1)=>{
         try{
 
-            const response = await axios.post('/cart/add', {
+            const response = await axios.post('/cart/remove', {
                 accessoryVariantColorId, quantity
             })
 

@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import BikeCard from './BikeCard.vue';
+import BikeCard from '@/components/BikeCard.vue';
 import ButtonLink from '@/components/ButtonLink.vue'
 import { useBikeStore } from '@/stores/bike';
 import { storeToRefs } from 'pinia';
@@ -17,6 +17,7 @@ onMounted(() => {
 </script>
 <template>
     <div>
+       
         <section v-if="isLoadingBikes" class="px-[4%] md:px-[8%] py-10 flex flex-col gap-4 animate-pulse">
             <!-- Header -->
             <div class="flex gap-2 items-center">
@@ -44,6 +45,7 @@ onMounted(() => {
             <div class="h-6 w-48 bg-gray-100 rounded"></div>
         </section>
         <section v-else class="px-[4%] md:px-[8%] py-10 flex flex-col gap-2">
+           
             <!-- {{ bikes }} -->
             <div class="flex gap-2 items-center">
                 <h1 class="text-2xl font-semibold">Featured Bikes</h1>
@@ -54,12 +56,13 @@ onMounted(() => {
                 </div> -->
             </div>
 
-            <div class="flex flex-col">
+
+            <div v-if="bikes?.data?.length == 0" class="flex flex-col">
 
 
-
+                 No Bike Available
             </div>
-            <div class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2">
+            <div v-else class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2">
                 <BikeCard :items="bikes.data" />
 
 
