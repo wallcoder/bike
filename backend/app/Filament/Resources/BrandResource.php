@@ -22,14 +22,14 @@ class BrandResource extends Resource
     protected static ?string $model = Brand::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-paint-brush';
-    protected static ?string $navigationGroup = 'Products';
-    protected static ?int $navigationSort = 1;
+    protected static ?string $navigationGroup = 'Brand & Colors';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('name')->required(),
-                FileUpload::make('image')->required()
+                TextInput::make('name')->unique()->required(),
+                FileUpload::make('image')->image()->required(),
             ]);
     }
 
@@ -37,9 +37,8 @@ class BrandResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('image'),
-                TextColumn::make('name')->searchable()
-                
+                TextColumn::make('name')->searchable(),
+                ImageColumn::make('image')->searchable(),
             ])
             ->filters([
                 //

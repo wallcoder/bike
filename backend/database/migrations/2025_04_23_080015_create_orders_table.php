@@ -15,9 +15,16 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->decimal('total', 10,2);
-            $table->enum('status', ['pending', 'shipped', 'delivered'])->default('pending');
+            $table->enum('status', ['pending', 'shipped', 'delivered', 'cancelled'])->default('pending');
+            $table->string('full_name');
+            $table->string('phone');
+            $table->string('street');
+            $table->string('city');
+            $table->string('state');
+            $table->string('postal_code');
+            $table->string('country');
             $table->timestamps();
-        });
+    });
     }
 
     /**

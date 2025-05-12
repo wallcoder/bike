@@ -7,6 +7,8 @@ use App\Filament\Resources\AccessoryResource\RelationManagers;
 use App\Models\Accessory;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -21,19 +23,24 @@ class AccessoryResource extends Resource
 {
     protected static ?string $model = Accessory::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-paper-clip';
-    protected static ?string $navigationGroup = 'Products';
-    protected static ?int $navigationSort = 2;
+    protected static ?string $navigationIcon = 'heroicon-o-face-smile';
+    protected static ?string $navigationGroup = 'Accessories';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+                 TextInput::make('model')->required(),
+                Select::make('brand_id')->relationship('brand', 'name')
+                ->searchable()->preload()
+                ->createOptionForm([
                     TextInput::make('name')->required(),
-                    TextInput::make('description')->required(),
-                    FileUpload::make('image')->required(),
-                    TextInput::make('price')->required(),
-                    
-                    
+                    FileUpload::make('image')->image()->required(),
+                ]),
+                Textarea::make('description')->required(),
+                FileUpload::make('image')->image()->required(),
+                TextInput::make('base_price')->numeric()->required()
+                //
             ]);
     }
 
@@ -42,10 +49,11 @@ class AccessoryResource extends Resource
         return $table
             ->columns([
                 ImageColumn::make('image'),
-                TextColumn::make('name'),
+                TextColumn::make('model')->searchable(),
+                TextColumn::make('brand.name')->searchable(),
                 TextColumn::make('description'),
-                TextColumn::make('price'),
-                
+                TextColumn::make('base_price'),
+                //
             ])
             ->filters([
                 //

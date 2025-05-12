@@ -26,13 +26,23 @@ class OrderResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('user_id')->relationship('user', 'name')->searchable()->required(),
+                Select::make('user_id')->relationship('user', 'id')->getOptionLabelFromRecordUsing(fn ($record)=>
+                "{$record->name} - {$record->email}"
+                )->searchable()->required()->preload(),
                 TextInput::make('total')->numeric()->required(),
                 Select::make('status')->options([
                     'pending'=>'pending',
                     'shipped'=>'shipped',
-                    'delivered'=>'delivered'
-                    ])
+                    'delivered'=>'delivered',
+                    'cancelled'=>'cancelled'
+                ]),
+                TextInput::make('full_name')->required(),
+                TextInput::make('phone')->numeric()->required(),
+                TextInput::make('street')->required(),
+                TextInput::make('city')->required(),
+                TextInput::make('state')->required(),
+                TextInput::make('postal_code')->required(),
+                TextInput::make('country')->required(),
             
             ]);
     }
@@ -42,10 +52,15 @@ class OrderResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('user.name'),
-                TextColumn::make('user.phone')->label('Phone'),
+                TextColumn::make('phone')->label('Phone'),
                 TextColumn::make('user.email')->label('Email'),
                 TextColumn::make('total'),
                 TextColumn::make('status'),
+                TextColumn::make('street'),
+                TextColumn::make('city'),
+                TextColumn::make('state'),
+                TextColumn::make('postal_code'),
+                TextColumn::make('country'),
             ])
             ->filters([
                 //

@@ -21,15 +21,39 @@ class OrderItemRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Select::make('accessory_id')->relationship('accessory', 'name')->searchable()->required(),
-    
-                TextInput::make('description')->required(),
-                TextInput::make('price')->required(),
-                TextInput::make('quantity')->required(),
-            ]);
+        Forms\Components\TextInput::make('name')
+            ->label('Product Name')
+            ->required()
+            ->maxLength(255),
+
+        Forms\Components\Select::make('accessory_variant_color_id')
+            ->relationship('accessoryVariantColor', 'id')
+            ->getOptionLabelFromRecordUsing(fn ($record) =>
+                "{$record->accessoryVariant->accessory->model} - {$record->accessoryVariant->name} - {$record->color->name}"
+            )
+            ->searchable()
+            ->required()
+            ->preload()
+            ->label('Accessory')
+            ->reactive() // make it reactive to state changes
+            ->afterStateUpdated(function ($state, callable $set) {
+                // $state is the selected accessory_variant_color_id
+                $variantColor = \App\Models\AccessoryVariantColor::find($state);
+                if ($variantColor) {
+                    $set('price', $variantColor->price);
+                }
+            }),
+
+        Forms\Components\TextInput::make('description')
+            ->required(),
+
+        Forms\Components\TextInput::make('price')
+            ->required()
+            ->readOnly(),
+
+        Forms\Components\TextInput::make('quantity')
+            ->required()->numeric(),
+    ]);
     }
 
     public function table(Table $table): Table

@@ -4,10 +4,13 @@ import ButtonLink from '@/components/ButtonLink.vue'
 import Button from '@/components/Button.vue'
 import { RouterLink } from 'vue-router'
 
+import {useAuthStore} from '@/stores/auth'
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
-import axios from 'axios';
 
+
+const {handleSignUp}  = useAuthStore()
+const {signUp, isLoadingSignup} = storeToRefs(useAuthStore())
 
 
 
@@ -16,16 +19,19 @@ import axios from 'axios';
 
 </script>
 <template>
+ 
+     
     <section class="w-full flex items-center justify-center  h-[90vh]">
-        <form @submit.prevent="handleSignup" class="flex flex-col border  bg-white p-6 gap-2 w-[300px] rounded-md">
+        <form @submit.prevent="handleSignUp" class="flex flex-col border  bg-white p-6 gap-2 w-[300px] rounded-md">
             <h2 class="text-lg font-semibold">Sign up</h2>
 
-            <FormInput label="Email" type="email" placeholder="Enter Email"/>
-            <FormInput label="Name" type="text" placeholder="Enter Email"/>
-            <FormInput label="Password" type="password" placeholder="Enter Password" />
-            <FormInput label="Confirm Password" type="password" placeholder="Enter Password" />
-            <Button :loading="isLoadingLogin" content="Login" :isLink="false" type="submit" />
-            <RouterLink to="/user/signup" class="text-sm hover:underline ">Don't have and account? Sign up</RouterLink>
+            <FormInput id="email" label="Email" type="email" v-model="signUp.email" placeholder="Enter Email"/>
+           
+            <FormInput id="name" label="Name" type="text" v-model="signUp.name" placeholder="Enter name"/>
+            <FormInput id="password" label="Password" type="password" v-model="signUp.password"  placeholder="Enter Password" />
+            <FormInput id="conPassword" label="Confirm Password" type="password" v-model="signUp.confirm_password" placeholder="Enter Password" />
+            <Button :loading="isLoadingSignup" content="Register"  type="submit" />
+            <RouterLink  to="/user/login" class="text-sm hover:underline ">Already have an account? Login</RouterLink>
         </form>
     </section>
 </template>

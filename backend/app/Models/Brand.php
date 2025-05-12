@@ -13,4 +13,8 @@ class Brand extends Model
         return $this->hasMany(Bike::class);
     }
 
+    public function accessory(): HasMany{
+        return $this->hasMany(Accessory::class);
+    }
+
 }

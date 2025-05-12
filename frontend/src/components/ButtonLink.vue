@@ -10,12 +10,16 @@ const props = defineProps({
     link: {
         type: String,
         default: ""
+    },
+    fun: {
+        type: Function,
+        default: ()=>{}
     }
 })
 
 </script>
 <template>
-    <RouterLink :to="link"  class="text-sm px-2 py-2 bg-purple-600 text-center rounded-lg text-white hover:brightness-[1.2] active:brightness-[1.1] ">
+    <RouterLink :to="link" @click="fun()"  class="text-sm px-2 py-2 bg-purple-600 text-center rounded-lg text-white hover:brightness-[1.2] active:brightness-[1.1] ">
         {{ content }}
     </RouterLink>
 </template>

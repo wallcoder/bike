@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('accessories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('model');
+            $table->foreignId('brand_id')->constrained('brands')->cascadeOnDelete();
             $table->string('description');
-            $table->string('price');
+            $table->string('slug');
+          
             $table->string('image');
-           
+            $table->decimal('base_price', 10,2);
             $table->timestamps();
         });
     }

@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('accessory_colors', function (Blueprint $table) {
+        Schema::create('bike_variant_colors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('accessory_id')->constrained('accessories')->cascadeOnDelete();
-            $table->string('color');
+            $table->foreignId('bike_variant_id')->constrained('bike_variants')->cascadeOnDelete();
+            $table->foreignId('color_id')->constrained('colors')->nullOnDelete();
             $table->string('image');
+            $table->decimal('price', 10,2);
+            $table->enum('status', ['available', 'unavailable'])->default('available');
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('accessory_colors');
+        Schema::dropIfExists('bike_variant_colors');
     }
 };

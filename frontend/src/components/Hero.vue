@@ -17,9 +17,9 @@ import ButtonLink from '@/components/ButtonLink.vue'
                 </p>
                 <div class="flex gap-2 flex-wrap pt-2">
 
-                    <ButtonLink content="Book Servicing" />
-                    <ButtonLink content="Browse Bikes" />
-                    <ButtonLink content="Shop Accessories" />
+                    <ButtonLink link="/servicing" content="Book Servicing" />
+                    <ButtonLink link="/bikes" content="Browse Bikes" />
+                    <ButtonLink link="/accessories" content="Shop Accessories" />
 
 
                 </div>

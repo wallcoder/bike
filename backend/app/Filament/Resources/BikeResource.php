@@ -8,9 +8,9 @@ use App\Models\Bike;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
-use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
@@ -23,25 +23,24 @@ class BikeResource extends Resource
 {
     protected static ?string $model = Bike::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-star';
-    protected static ?string $navigationGroup = 'Products';
-    protected static ?int $navigationSort = 3;
+    protected static ?string $navigationIcon = 'heroicon-o-square-2-stack';
+    protected static ?string $navigationGroup = 'Bikes';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 TextInput::make('model')->required(),
-                Select::make('brand_id')->relationship('brand', 'name')->required()->searchable()
+                Select::make('brand_id')->relationship('brand', 'name')
+                ->searchable()->preload()
                 ->createOptionForm([
                     TextInput::make('name')->required(),
-                    FileUpload::make('image')->required()
+                    FileUpload::make('image')->image()->required(),
                 ]),
-                FileUpload::make('image')->required(),
-                TextInput::make('description')->required(),
-               
+                Textarea::make('description')->required(),
                 
-                TextInput::make('price')->required()->numeric(),
-                
+                FileUpload::make('image')->image()->required(),
+                TextInput::make('base_price')->numeric()->required()
 
             ]);
     }
@@ -54,7 +53,8 @@ class BikeResource extends Resource
                 TextColumn::make('model'),
                 TextColumn::make('brand.name'),
                 TextColumn::make('description'),
-                TextColumn::make('price'),
+                TextColumn::make('slug'),
+                TextColumn::make('base_price'),
                 
             ])
             ->filters([
@@ -74,7 +74,6 @@ class BikeResource extends Resource
     {
         return [
             RelationManagers\BikeVariantRelationManager::class
-            
         ];
     }
 

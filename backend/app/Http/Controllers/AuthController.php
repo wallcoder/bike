@@ -36,6 +36,7 @@ class AuthController extends Controller
         $user = User::create([
             'name'=>$request->name,
             'email'=>$request->email,
+            'role'=>'user',
             'password'=>bcrypt($request->password)
         ]);
 
@@ -46,7 +47,7 @@ class AuthController extends Controller
         ];
       
 
-        return response()->json(['success'=>true, 'message'=>'User Created Successfully', 'data'=>$result])->cookie('token', $token, 15, '/', null, false,true, false, 'Lax' );
+        return response()->json(['success'=>true, 'message'=>'User Created Successfully', 'data'=>$result])->cookie('token', $token, config('jwt.ttl'), '/', null, false,true, false, 'Lax' );
 
     }catch(Exception $e ){
         return response()->json(['success'=>false, 'message'=>$e->getMessage()]);
@@ -110,7 +111,7 @@ class AuthController extends Controller
                 
             ];
 
-            return response()->json(['success'=>true, 'message'=>'Login Successful', 'data'=>$result], 200)->cookie('token', $token, 15, '/', null, false,true, false, 'Lax' );
+            return response()->json(['success'=>true, 'message'=>'Login Successful', 'data'=>$result], 200)->cookie('token', $token, config('jwt.ttl'), '/', null, false,true, false, 'Lax' );
 
         }catch(Exception $e){
             return response()->json(['success'=>false, 'message'=>$e->getMessage()]);
