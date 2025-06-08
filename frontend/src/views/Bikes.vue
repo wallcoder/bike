@@ -57,7 +57,7 @@ onMounted(() => {
             </div>
 
 
-            <div v-if="bikes.data.length == 0" class="flex flex-col">
+            <div v-if="bikes?.data?.length == 0" class="flex flex-col">
 
 
                 No Bike Available

@@ -13,7 +13,7 @@ const props = defineProps({
     <div class="rounded-lg   flex flex-col overflow-hidden" v-for="i in items">
         <div>
             <img :src="`${api}/${i.image}`" alt=""
-                class="w-full h-[260px] brightness-[0.9]  rounded-lg hover:brightness-[1] object-cover">
+                class="w-full h-[260px] brightness-[0.9]  rounded-lg hover:brightness-[1] object-contain">
         </div>
         <div class="px-2 py-2 flex flex-col gap-1  h-full text-sm">
             <span class="">{{ i.model }}</span>

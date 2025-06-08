@@ -52,7 +52,7 @@ onMounted(() => {
                 </div> -->
             </div>
 
-            <div v-if="accs.data.length == 0" class="flex flex-col">
+            <div v-if="accs?.data?.length == 0" class="flex flex-col">
 
 
                 No Bike Available
